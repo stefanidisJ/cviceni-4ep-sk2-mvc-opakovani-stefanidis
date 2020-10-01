@@ -1,1 +1,8 @@
-<p>Toto je domácí stránka.</p>
+<?php
+
+
+
+
+
+
+?>
