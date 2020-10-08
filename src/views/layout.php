@@ -18,7 +18,7 @@
             {
         ?>
         <a href="<?php echo $zakladni_url; ?>index.php/stranky/profil/">Profil</a>
-        <a href="<?php echo $zakladni_url; ?>index.php/stranky/prispevky/">Přidat příspěvek</a>
+        <a href="<?php echo $zakladni_url; ?>index.php/prispevky/vytvorit/">Přidat příspěvek</a>
         <?php
             }
             else
@@ -34,7 +34,7 @@
         <?php require_once "router.php"; ?>
     </main>
     <footer>
-        &copy; Jakub Šenkýř, 2020
+        &copy; Jiří Stefanidis, 2020
     </footer>
 </body>
 </html>

@@ -1,24 +1,24 @@
 <?php
 
-class Prispevek
+class Prispevky
 {
     private function mam_dostatek_dat_k_vytvoreni()
     {
         // kontrola existence udaju ve formulari
         if(!isset($_POST["nazev"]))
             return false;
-        if(!isset($_POST["prispevek"]))
+        if(!isset($_POST["text"]))
             return false;
         
         return true;
     }
 
-    private function data_k_vytvoreni_jsou_v_poradku($nazev, $prispevek)
+    private function data_k_vytvoreni_jsou_v_poradku($nazev, $text)
     {
         // pozadavky na jmeno a heslo
         if(strlen($nazev) < 1)
             return false;
-        if(strlen($prispevek) < 1)
+        if(strlen($text) < 1)
             return false;
         
         return true;
@@ -26,40 +26,41 @@ class Prispevek
 
     public function vytvorit()
     {
+        global $zakladni_url;
+        
         // bud se zpracuje registracni formular, nebo se zobrazi
-        if($this->mam_dostatek_dat_k_registraci())
+        if($this->mam_dostatek_dat_k_vytvoreni())
         {
-            $nazev = trim($_POST["nazev"]);
-            $prispevek = trim($_POST["prispevek"]);
+            $nazev = $_POST["nazev"];
+            $text = $_POST["text"];
 
-            if($this->data_k_vytvoreni_jsou_v_poradku($nazev, $prispevek))
+            if($this->data_k_vytvoreni_jsou_v_poradku($nazev, $text))
             {
                 // dochazi k registraci uzivatele
-                $jmeno = $_SESSION["prihlaseny_uzivatel"]
-                $prispevek = new Prispevek($jmeno, $nazev, $prispevek);
+                $prispevek = new Prispevek($nazev, $text);
 
-                if($prispevek->vytvor_prispevek())
+                if($prispevek->vytvor())
                 {
                     // uzivatel je uspesne registrovan
                     // presmeruju ho na prihlaseni
-                    return spustit("stranky", "domu");
+                    header("location:".$zakladni_url."index.php/stranky/domu/");
                 }
                 else
                 {
                     // registrace selhala na urovni modelu
-                    return spustit("stranky", "chyba");
+                    header("location:".$zakladni_url."index.php/stranky/chyba/");
                 }
             }
             else
             {
                 // data ve formulari nejsou v poradku
-                require_once "views/uzivatele/prispevky.php";
+                require_once "views/prispevky/vytvorit.php";
             }
         }
         else
         {
             // data ve formulari nejsou kompletni
-            require_once "views/uzivatele/prispevky.php";
+            require_once "views/prispevky/vytvorit.php";
         }
     }
 }

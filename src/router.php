@@ -6,11 +6,15 @@ $povolene_controllery_a_akce = array(
         "domu",
         "chyba",
         "profil",
+        "prispevky",
     ),
     "uzivatele" => array(
         "registrovat",
         "prihlasit",
         "odhlasit",
+    ),
+    "prispevky" => array(
+        "vytvorit",
     ),
 );
 
@@ -45,6 +49,10 @@ function spustit($controller, $akce)
         case "uzivatele":
             require_once "models/Uzivatel.php";
             $aktivni_controller = new Uzivatele();
+            break;
+        case "prispevky":
+            require_once "models/Prispevek.php";
+            $aktivni_controller = new Prispevky();
             break;
     }
 
